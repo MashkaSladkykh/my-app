@@ -1,57 +1,52 @@
 import { Square } from "./Square";
-import { useState, useEffect, useLayoutEffect } from "react";
+import {data} from'./data';
+import { useState } from "react";
 
 export const Squares = () => {
-  const [activeId, setActiveId] = useState(1);
-  const [data, setData] = useState([
-    {
-        id:0,
-        className:'square red',
-        isActive:false,
-    },
-    {
-        id:1,
-        className:'square black',
-        isActive:false,
-    },
-    {
-        id:2,
-        className:'square blue',
-        isActive:false,
-    },
-    {
-        id:3,
-        className:'square purple',
-        isActive:false,
+  const [activeIndex, setActiveIndex] = useState(1);
+  console.log(data);
+
+  const getPrevSquare = (activeIndex) => {
+    if (activeIndex === 0) {
+      return data.length - 1;
     }
-  ]);
-  useEffect(()=>{
-    data.sort((a,b)=>a.id-b.id)
-  },[])
+    return activeIndex - 1;
+  };
+  const getNextSquare = (activeIndex) => {
+    if (activeIndex === data.length - 1) {
+      return 0;
+    }
+    return activeIndex + 1;
+  };
 
-  useLayoutEffect(()=>{
-    data.unshift(data.pop());
-    console.log(data)
-  },[activeId, data]);
+  const goPrev = () => {
+    if (activeIndex === 0) {
+      setActiveIndex(data.length - 1);
+    } else {
+      setActiveIndex(activeIndex - 1);
+    }
+  };
+  const goNext = () => {
+    if (activeIndex === data.length - 1) {
+      setActiveIndex(0);
+    } else {
+      setActiveIndex(activeIndex + 1);
+    }
+  };
 
-  useLayoutEffect(() => { 
-  const lastIndex = data.length - 1;
-  if (activeId > lastIndex){
-    setActiveId(0)
-  } 
-  console.log(activeId)
-  }, [activeId, data]);    
-  
-  return(
-      <div className="squares">
-          {data.map(({className, id}) => (
-              <Square 
-                key={id}
-                isActive={activeId === id}
-                className={className}
-                onClick={()=>setActiveId(id)}
-              />
-          ))}
+  return (
+    <div className='squares'>
+      <Square
+        className={data[getPrevSquare(activeIndex)].className}
+        onClick={goPrev}
+      />
+
+      <Square className={`${data[activeIndex].className} active`} />
+
+      <Square
+        className={data[getNextSquare(activeIndex)].className}
+        onClick={goNext}
+      />
     </div>
-  )
-}
+  );
+};
