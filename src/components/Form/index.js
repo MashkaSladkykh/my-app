@@ -1,45 +1,36 @@
-import { useState, useRef } from "react";
+import { useState} from "react";
 
 export const Form =()=>{
     const data = ['Chrome', 'Safari', 'Firefox', 'Shit yandex', 'Chromium', 'Opera'];
-    const [value, setValue] = useState(''); 
-    const [result, setResult] = useState(data);
+    const [value, setValue] = useState('');
     const [active, setActive] = useState(false);
-    const inputEl = useRef(null);
 
-    const filter = value => data.filter(el => el.toLowerCase().includes(value.toLowerCase()))
-    
     const handleChange = (e) => {
         const str = e.target.value;
         setValue(str);
-        setResult(filter(str))
     };
-
-    const handleActive =() => {
-        setActive(!active)
-    };
-    const bluring = () => {
-        inputEl.current.blur();
-        console.log(inputEl.current.blur ? 'blur' : 'not')
-    }
 
     return(
-        <form className="container" onClick={bluring}>
+        <div className="container">
             <div className="input-container">
                 <input 
                 placeholder="Your browser is..." 
                 className="input" 
                 onChange={(e)=>handleChange(e)}
                 value={value}
-                onFocus={handleActive}
-                ref={inputEl}            
+                onFocus={()=> setActive(true)} 
+                onBlur={e =>{
+                    e.relatedTarget && setValue(e.relatedTarget.innerHTML) 
+                    setActive(false)
+                }}         
                 />
-                <ul className={active ? 'list active' : 'list'}>
-                    {result.map(browser => 
-                      <li className="list-item" onClick={()=>{setValue(browser); setResult(filter(browser))}} key={browser}> {browser}</li>)}
-                </ul>
+                {active ? <ul className='list active'>
+                    {data.filter(el => value ? el.toLowerCase().startsWith(value.toLowerCase()) : el)
+                    .map(browser => 
+                      <li className="list-item" onClick={()=>{setValue(browser);}} key={browser} tabIndex={1}>{browser}</li>)}
+                </ul> : null}
             </div>
-            <button type="submit" onClick={(e)=> {e.preventDefault(); alert(value)}}>Submit</button>
-        </form>
+            <button type="button" onClick={()=>alert(value)}>Submit</button>
+        </div>
     )
 };
