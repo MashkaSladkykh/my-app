@@ -1,11 +1,17 @@
 body {
-  width: 1200px;
-  margin: 50px auto;
-  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+  height: 80vh;
+}
+#root {
+  height: 100%;
 }
 
 .App {
-  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
 
 .squares {

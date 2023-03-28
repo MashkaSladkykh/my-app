@@ -1,11 +1,12 @@
 import './App.css';
 import { Squares } from './components/Slider';
 import { Form } from './components/Form';
+import { Button } from './components/Button';
 
 function App() {
   return (
     <div className="App">
-      <Form/>
+      <Button/>
     </div>
   );
 }
