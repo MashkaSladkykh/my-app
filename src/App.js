@@ -1,12 +1,28 @@
+import { useState } from 'react';
 import './App.css';
-import { Squares } from './components/Slider';
-import { Form } from './components/Form';
 import { Button } from './components/Button';
 
 function App() {
+  const [buttons, setButtons] = useState({
+    first:{
+      ids:['first'],
+      childrens:{},
+      position: {
+        left: 0,
+        top: 0,
+        zIndex: 0
+      }
+    }
+  });
+
   return (
     <div className="App">
-      <Button/>
+      <Button
+        setButtons={setButtons}
+        ids={buttons.first.ids}
+        childrens={buttons.first.childrens}
+        position={buttons.first.position}
+      />
     </div>
   );
 }

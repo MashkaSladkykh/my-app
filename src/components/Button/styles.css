@@ -4,5 +4,5 @@ button {
     padding: 10px;
     border-radius: 5px;
     font-weight: bold;
-    position: relative;
+    position: absolute;
 }
