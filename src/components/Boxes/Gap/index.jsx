@@ -7,9 +7,22 @@ export const Gap = ({setBoxes, id}) => {
         {type:'box', id:generateId(), value:''}
     ];
     const addNew = (id) => {
+        const splice = (arr, start, deleteCount, ...addItem) => {
+            const result = [];
+            if (start > 0) {
+                result.push(...arr.slice(0, start));
+            }
+            result.push(...addItem);
+            const len = result.length - addItem.length;
+            let count = deleteCount <= 0 ? len : len + deleteCount;
+            if (arr[count]) {
+                result.push(...arr.slice(count));
+            }
+            return result;
+        };
+
         setBoxes(boxes => {
-            boxes.splice(id, 0, ...newBox)
-            return [...boxes]
+            return [...splice(boxes, id, 0, ...newBox)]
         })
     }
 
