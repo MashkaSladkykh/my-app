@@ -1,7 +1,5 @@
 import './styles.css';
 
-const getId = ()=> Math.random()+Math.random()*Math.random();
-
 export const Button = ({setButtons, ids, childrens, position}) => {
   const {left, top, zIndex} = position;
   const calculatePosition = () => {

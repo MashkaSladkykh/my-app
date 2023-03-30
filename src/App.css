@@ -10,7 +10,10 @@ body {
 .App {
   display: flex;
   justify-content: center;
-  align-items: center;
-  height: 100%;
+  align-items: flex-end;
+  height: 50%;
   position: relative;
+}
+p{
+  text-align: center;
 }

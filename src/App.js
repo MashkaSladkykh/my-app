@@ -1,29 +1,26 @@
 import { useState } from 'react';
 import './App.css';
-import { Button } from './components/Button';
+import { Box } from './components/Boxes';
+import {Gap} from './components/Boxes/Gap';
+import { generateId } from './components/utils';
 
 function App() {
-  const [buttons, setButtons] = useState({
-    first:{
-      ids:['first'],
-      childrens:{},
-      position: {
-        left: 0,
-        top: 0,
-        zIndex: 0
-      }
-    }
-  });
+  const [boxes, setBoxes] = useState([
+    {type:'box', id:generateId(), value:'a'},
+    {type:'gap', id:generateId(),},
+    {type:'box', id:generateId(), value:'b'},
+    {type:'gap', id:generateId(),},
+    {type:'box', id:generateId(), value:'c'},
+  ]);
+  console.log(boxes)
 
   return (
-    <div className="App">
-      <Button
-        setButtons={setButtons}
-        ids={buttons.first.ids}
-        childrens={buttons.first.childrens}
-        position={buttons.first.position}
-      />
-    </div>
+    <>
+      <div className="App">
+        {boxes.map((el, i) => el.type ==='box' ? <Box key={el.id} value={el.value} setBoxes={setBoxes} id={i}/> : <Gap setBoxes={setBoxes} key={el.id} id={i}/>)}
+      </div>
+      <p>{boxes.map(el => el.value)}</p>
+    </>
   );
 }
 
