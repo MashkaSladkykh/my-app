@@ -14,3 +14,56 @@ body {
   height: 100%;
   position: relative;
 }
+
+.wrapper{
+  width: 500px;
+  display: inline-block;
+  position: relative;
+  font-family: arial;
+}
+
+.ui-slider{
+  background-color: rgba(0,0,0,.04);
+  border-radius: 2px;
+  height: 4px;
+  cursor: pointer;
+}
+
+.ui-slider-range{
+  background-color: #91caff;
+  border-radius: 2px;
+  height: 4px;
+  position: absolute;
+}
+
+.ui-slider:hover .ui-slider-range{
+  background-color: #69b1ff;
+}
+
+.ui-slider-handle{
+  width: 10px;
+  height: 10px;
+  background-color: #fff;
+  box-shadow: 0 0 0 2px #91caff;
+  border-radius: 50%;
+  cursor: pointer;
+  transition-duration: 0.2s;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+}
+
+.ui-slider-handle:hover {
+  width: 20px;
+  height: 20px;
+  box-shadow: 0 0 0 4px #1677ff;
+}
+
+.ui-slider-handle :focus{
+  outline: none;
+}
+
+.ui-slider-handle :active{
+  cursor: grabbing;
+}
+

@@ -1,27 +1,27 @@
-import { useState } from 'react';
+import {useState } from 'react';
 import './App.css';
-import { Button } from './components/Button';
+import { Range } from './components/Range';
 
 function App() {
-  const [buttons, setButtons] = useState({
-    first:{
-      ids:['first'],
-      childrens:{},
-      position: {
-        left: 0,
-        top: 0,
-        zIndex: 0
-      }
-    }
+  const [state, setState] = useState({
+    range: true,
+    min: 0,
+    max: 100,
+    step: 1,
+    values: [45, 75],
+    value: 0,
   });
+
+  let {min, max, values, value} = state;
 
   return (
     <div className="App">
-      <Button
-        setButtons={setButtons}
-        ids={buttons.first.ids}
-        childrens={buttons.first.childrens}
-        position={buttons.first.position}
+      <Range
+       setState={setState}
+       min={min}
+       max={max}
+       values={values}
+       value={value}
       />
     </div>
   );
