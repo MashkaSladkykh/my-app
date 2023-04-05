@@ -8,8 +8,10 @@ function App() {
     min: 0,
     max: 100,
     step: 1,
-    values: [45, 75],
+    values: [25, 75],
     value: 0,
+    left:25,
+    right:25,
   });
 
   return (
