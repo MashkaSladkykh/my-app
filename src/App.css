@@ -60,11 +60,27 @@ output {
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10 and IE 11 */
   user-select: none; /* Standard syntax */
-  top: -25px;
+  top: -43px;
 }
 
 .range-input:hover output {
   display: inline;
+  background-color: hsla(209, 100%, 76%, 0.573);
+  padding: 4px 2px 2px;
+  border-radius: 5px;
+}
+
+.range-input:hover output:after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  width: 0;
+  height: 0;
+  border-top: solid 10px hsla(209, 100%, 76%, 0.573);
+  border-left: solid 5px transparent;
+  border-right: solid 5px transparent;
 }
 
 input[type="range"]::-webkit-slider-thumb{
