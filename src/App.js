@@ -9,7 +9,6 @@ function App() {
     max: 100,
     step: 1,
     values: [25, 75],
-    value: 0,
     left:25,
     right:25,
   });

@@ -1,39 +1,58 @@
-
 export const Range = ({setState, state}) => {
-  let {values, min, max, step, value, right, left} = state;
+  let {values, min, max, step, right, left} = state;
 
   const handleChange = e => {
-    const res = values[1] - values[0];
-    value = e.target.value;
-    
-    if(res < step){
-      if(e.target.className === "range-min"){
-        values[0] = values[1] - step;
-      }
-      else{
-        values[1] = values[0] + step;
-      }
-    } else{
-      if(e.target.className === "range-min") {
-        values[0] = parseInt(value);
-        left = ((values[0] / max) * 100);
-      } else {
-        values[1] = parseInt(value);
-        right = 100 - (values[1] / max) * 100;
-      }
+  if (values[0] < values[1]) {
+    if(e.target.className === "range-min") {
+      values[0] = parseInt(e.target.value);
+      left = ((values[0] / max) * 100);
+    } else {
+      values[1] = parseInt(e.target.value);
+      right = 100 - (values[1] / max) * 100;
+  }} else { 
+    if(e.target.className === "range-min") {
+      values[0] = parseInt(e.target.value);
+      right = 100 - (values[0] / max) * 100;
+    } else {
+      values[1] = parseInt(e.target.value);
+      left = ((values[1] / max) * 100);
     }
+  }
+  setState({
+    ...state, 
+    values,
+    right,
+    left  
+  })
+  };
+
+  const handleClick = e => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const clickPosition = e.clientX - rect.left;
+    const range = max - min;
+    const newValue = Math.round(clickPosition / rect.width * range);
+
+    if(Math.abs(values[0] - newValue) < Math.abs(values[1] - newValue)) {
+      values[0] = newValue;
+      left = ((values[0] / max) * 100);
+    } else { 
+      console.log('hihih')
+      values[1] = newValue;
+      right = 100 - (values[1] / max) * 100;
+      console.log(left, right)
+    }
+
     setState({
       ...state, 
-      value, 
       values,
-      right,
-      left  
+      left, 
+      right
     })
+
   }
 
-  
   return (
-    <div className="wrapper">
+    <div className="wrapper" onClick={handleClick}>
       <div className="slider">
         <div className="progress" style={{left:`${left}%`, right:`${right}%`}}></div>
       </div>
@@ -47,6 +66,7 @@ export const Range = ({setState, state}) => {
           step={step}  
           onChange={e => handleChange(e)}
         />
+        <output className="min" style={{left:`${values[0] - 1}%`}}>{values[0]}</output>
         <input 
           type="range" 
           className="range-max" 
@@ -56,6 +76,7 @@ export const Range = ({setState, state}) => {
           step={step} 
           onChange={e => handleChange(e)}
         />
+        <output className="max" style={{left:`${values[1] - 1}%`}}>{values[1]}</output>
       </div>
     </div>
   );
