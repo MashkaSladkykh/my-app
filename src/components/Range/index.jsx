@@ -36,10 +36,8 @@ export const Range = ({setState, state}) => {
       values[0] = newValue;
       left = ((values[0] / max) * 100);
     } else { 
-      console.log('hihih')
       values[1] = newValue;
       right = 100 - (values[1] / max) * 100;
-      console.log(left, right)
     }
 
     setState({
