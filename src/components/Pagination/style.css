@@ -1,0 +1,43 @@
+.posts {
+
+}
+
+.posts-title {
+    text-align: center;
+}
+
+.post {
+    border: 1px solid gray;
+    margin: 5px;
+    padding: 20px;
+    border-radius: 40px;
+}
+
+
+.post-title {
+    text-transform: capitalize;
+    color: #504b4b;
+    font-size: xx-large;
+}
+
+.post-body {
+    font-size: x-large
+}
+
+.pagination-wrap{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pagination-btn {
+    border: none;
+    border-radius: 6px;
+    background-color: transparent;
+    padding: 6px;
+    cursor: pointer;
+}
+
+.pagination-btn:hover {
+    background-color: #ddd;
+}
