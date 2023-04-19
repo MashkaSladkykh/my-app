@@ -1,13 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import './style.css';
 
 export const PaginationComponent = ({currentPage, postsPerPage, totalPosts, paginate, setCurrentPage}) => {
-    const pageNumbers = [];
+    
     const [arrOfCurrButtons, setArrOfCurrButtons] = useState([]);
-
-    for(let i = 1; i <= Math.ceil(totalPosts/postsPerPage); i++){
-        pageNumbers.push(i);
-    }
+    const pageNumbers = useMemo(()=>Array.from({length:Math.ceil(totalPosts/postsPerPage)}, (_, i)=>i+1), [totalPosts,postsPerPage]);
 
     useEffect(()=>{
         let tempNumberOfPages = [...arrOfCurrButtons];
@@ -15,10 +12,8 @@ export const PaginationComponent = ({currentPage, postsPerPage, totalPosts, pagi
         let dots = '...';
         let dotsLeft = '... '
         let dotsRight = ' ...'
-      console.log(pageNumbers)
         if (pageNumbers.length < 6) {
           tempNumberOfPages = pageNumbers
-          console.log(tempNumberOfPages)
         }
         else if (currentPage >= 1 && currentPage <= 3) {
           tempNumberOfPages = [1, 2, 3, 4, dots, pageNumbers.length]
@@ -56,8 +51,7 @@ export const PaginationComponent = ({currentPage, postsPerPage, totalPosts, pagi
         }
         setArrOfCurrButtons(tempNumberOfPages)
 
-    }, [currentPage])
-    
+    }, [currentPage, pageNumbers])
     return(
         <div>
             <ul className='pagination'>

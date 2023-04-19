@@ -51,7 +51,10 @@ export const Pagination = () => {
     const lastPostIndex = currentPage * postsPerPage;
     const firstPostIndex = lastPostIndex - postsPerPage;
     const currentPosts = posts.slice(firstPostIndex, lastPostIndex);
-    const paginate = pageNumber => {setCurrentPage(pageNumber); pageNumber > 1 ? setPrevDisabled(false) : setPrevDisabled(true)};
+    const paginate = pageNumber => {
+        setCurrentPage(pageNumber); 
+        pageNumber === 1 ? setPrevDisabled(true) : setPrevDisabled(false);
+    };
 
     return(
         <>
