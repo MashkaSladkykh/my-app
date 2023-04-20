@@ -9,6 +9,7 @@ export const PaginationComponent = ({currentPage, postsPerPage, totalPosts, setC
   const [prevDisabled, setPrevDisabled] = useState(false);
   const [nextDisabled, setNextDisabled] = useState(false);
   const [arrOfCurrButtons, setArrOfCurrButtons] = useState([]);
+  const [prev, setPrev] = useState(1);
   
   const totalPages = Math.ceil(totalPosts/postsPerPage); //calcultes total number of Pages
 
@@ -17,7 +18,9 @@ export const PaginationComponent = ({currentPage, postsPerPage, totalPosts, setC
   [totalPosts,postsPerPage]);//creates array og page numbers
 
   const paginate = pageNumber => {
-    setCurrentPage(pageNumber); 
+    setCurrentPage(previous => {
+      setPrev(previous)
+      return pageNumber}); 
     pageNumber === 1 ? setPrevDisabled(true) : setPrevDisabled(false);
   };//to change currentPage onclick on some of numbers
   
@@ -79,21 +82,24 @@ const prevPage = () =>  setCurrentPage(prev => {
         tempNumberOfPages = pageNumbers
       }   
       else if (currentPage >= 1 && currentPage <= 3) {//[1,2,'3',4,5,6], '' - currentPage
-        tempNumberOfPages = [1, 2, 3, 4, dots, pageNumbers.length]//[1,2,3,4,...6]
+        tempNumberOfPages = [1, 2, 3, 4, 5, dots, pageNumbers.length]//[1,2,3,4,5...10]
       }
       else if (currentPage === 4) {
-        const sliced = pageNumbers.slice(0, 5)
-        tempNumberOfPages = [...sliced, dots, pageNumbers.length]//[1,2,3,4,5,...,10]
+        const sliced = pageNumbers.slice(0, 6)
+        tempNumberOfPages = [...sliced, dots, pageNumbers.length]//[1,2,3,4,5,6...,10]
       }
       else if (currentPage > 4 && currentPage < pageNumbers.length - 3) {
       //[1,2,3,4,5,6,7,8,9,10].length = 10 - 3 = 7 :   4 < currentPage < 7
-
         const sliced1 = pageNumbers.slice(currentPage - 3, currentPage)                
         const sliced2 = pageNumbers.slice(currentPage, currentPage + 2)             
         tempNumberOfPages = ([1, dotsLeft, ...sliced1, ...sliced2, dotsRight, pageNumbers.length]) 
       }
-      else if (currentPage > pageNumbers.length - 4) {                 
-        const sliced = pageNumbers.slice(pageNumbers.length - 4)        
+      else if(currentPage === pageNumbers.length-3){
+        const sliced = pageNumbers.slice(pageNumbers.length - 6)
+        tempNumberOfPages = ([1, dotsLeft, ...sliced])  
+      }
+      else if (currentPage > pageNumbers.length - 3) {                 
+        const sliced = pageNumbers.slice(pageNumbers.length - 5)        
         tempNumberOfPages = ([1, dotsLeft, ...sliced])                       
       }
       else if (currentPage === dots) {
@@ -102,13 +108,13 @@ const prevPage = () =>  setCurrentPage(prev => {
         // or 
         // [1, 2, 3, 4, 5, "...", 10].length = 7 - 3 = 4
         // [1, 2, 3, 4, 5, "...", 10][4] = 5 + 1 = 6
-        setCurrentPage(arrOfCurrButtons[3] + 1) 
+        setCurrentPage(prev+5) 
       }
       else if (currentPage === dotsRight) {
-        setCurrentPage(arrOfCurrButtons[3] + 6)
+        setCurrentPage(prev + 5)
       }
       else if (currentPage === dotsLeft) {
-        setCurrentPage(arrOfCurrButtons[3] - 4)
+        setCurrentPage(prev-5)
       }
       setArrOfCurrButtons(tempNumberOfPages)
 
