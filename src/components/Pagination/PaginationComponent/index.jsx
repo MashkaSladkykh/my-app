@@ -69,15 +69,15 @@ const prevPage = () =>  setCurrentPage(prev => {
       if(currentPage === totalPages){//[1,2,3,4,'5'], '' - currentPage
         setNextDisabled(true)
       }
-      if (pageNumbers.length < 8) {
-        tempNumberOfPages = pageNumbers
-      }   
       if(currentPage > totalPages){
         setCurrentPage(totalPages)
       } 
       if(currentPage < 1 ){
         setCurrentPage(1)
       }
+      if (pageNumbers.length < 8) {
+        tempNumberOfPages = pageNumbers
+      }   
       else if (currentPage >= 1 && currentPage <= 3) {//[1,2,'3',4,5,6], '' - currentPage
         tempNumberOfPages = [1, 2, 3, 4, dots, pageNumbers.length]//[1,2,3,4,...6]
       }
